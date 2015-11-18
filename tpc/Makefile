@@ -46,6 +46,7 @@ Generate_cks ?= y
 Generate_avro ?= y
 Generate_protostuff ?= y
 
+
 ##########################################################################
 
 .PHONY: default compile
@@ -65,8 +66,15 @@ endif
 
 ##########################################################################
 
+
+
 SchemaExtensions := .thrift .proto .tcks .avro .dsl
 Schemas = $(patsubst schema/%,%,$(wildcard $(SchemaExtensions:%=schema/*%)))
+
+
+ifneq ($(findstring coherence,$(wildcard lib/*.jar)),)
+	Coherence_exists := y
+endif
 
 ##########################################################################
 # Figure out classpath
@@ -75,9 +83,11 @@ build/gen-cp: schema
 	$(p2)mkdir -p build
 	$(p1)echo "$(call mkcp,$(Schemas:%=build/bytecode/gen/%))" > build/gen-cp
 
+
 build/lib-cp: lib
 	$(p2)mkdir -p build
 	$(p1)echo "$(call mkcp,$(wildcard lib/*.jar))" > "$@"
+
 
 ##########################################################################
 # Generate and Compile Bindings
@@ -180,6 +190,10 @@ $(foreach s,$(Schemas),$(eval $(call EachSchema,$(subst .,_,$(s)),$(s))))
 # Compile main code
 
 JavaSourceRoots = src
+ifeq ($(Coherence_exists), y)
+	JavaSourceRoots += src.coherence
+endif
+
 JavaSourceDirs = $(shell find $(JavaSourceRoots) -type d)
 JavaSourceFiles = $(shell find $(JavaSourceRoots) -type f -name '*.java')
 ScalaSourceFiles = $(shell find $(JavaSourceRoots) -type f -name '*.scala')

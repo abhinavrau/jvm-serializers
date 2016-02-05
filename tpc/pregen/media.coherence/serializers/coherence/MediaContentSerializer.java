@@ -8,6 +8,7 @@ import data.media.Media;
 import data.media.MediaContent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class MediaContentSerializer  implements PofSerializer {
     public Object deserialize(PofReader pofReader) throws IOException {
         MediaContent mediaContent = new MediaContent();
         mediaContent.media = (Media)pofReader.readObject(0);
-        mediaContent.images = (List<Image>) pofReader.readCollection(1,null );
+        mediaContent.images = (List<Image>) pofReader.readCollection(1,new ArrayList<Image>());
         return mediaContent;
 
 

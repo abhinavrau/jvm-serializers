@@ -10,8 +10,10 @@
       <sourceFolder url="file://$MODULE_DIR$/../../build/gen/media.avro" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/gen/media.protostuff.proto" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../build/gen/media.tcks" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../pregen/media.coherence" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../pregen/media.dsl" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
@@ -25,4 +27,3 @@
     <orderEntry type="library" name="All" level="project" />
   </component>
 </module>
-

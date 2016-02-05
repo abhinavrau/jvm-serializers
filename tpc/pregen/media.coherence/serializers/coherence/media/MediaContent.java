@@ -3,6 +3,7 @@ package serializers.coherence.media;
 import com.seovic.pof.annotations.PortableType;
 import com.tangosol.io.pof.PofReader;
 import com.tangosol.io.pof.PofWriter;
+import org.apache.avro.generic.GenericData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class MediaContent
 		if (pofReader.getVersionId()>= (1)) {
 
 			this.media = (Media)pofReader.readObject(0);
-			this.images = (List<Image>) pofReader.readCollection(1,null );
+			this.images = (List<Image>) pofReader.readCollection(1,new ArrayList<Image>());
 		}
 
 	}

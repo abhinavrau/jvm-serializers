@@ -216,7 +216,7 @@ public class Media  {
 			this.size = pofReader.readLong(6);
 			this.bitrate = pofReader.readInt(7);
 			this.hasBitrate = pofReader.readBoolean(8);
-			this.persons = (List<String>) pofReader.readCollection(9, null);
+			this.persons = (List<String>) pofReader.readCollection(9, new ArrayList<String>());
 			this.player = (Player) pofReader.readObject(10);
 			this.copyright = pofReader.readString(11 );
 		}

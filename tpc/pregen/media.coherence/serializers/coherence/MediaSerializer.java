@@ -6,6 +6,7 @@ import com.tangosol.io.pof.PofWriter;
 import data.media.Media;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class MediaSerializer  implements PofSerializer {
         media.size = pofReader.readLong(6);
         media.bitrate = pofReader.readInt(7);
         media.hasBitrate = pofReader.readBoolean(8);
-        media.persons = (List<String>) pofReader.readCollection(9, null);
+        media.persons = (List<String>) pofReader.readCollection(9, new ArrayList<String>());
         media.player = (Media.Player) pofReader.readObject(10);
         media.copyright = pofReader.readString(11 );
         return media;

@@ -135,18 +135,26 @@ public class BenchmarkRunner extends MediaItemBenchmark
 
 	    DSLPlatform.register(groups);
 
-        // Since Oracle serializers.coherence.Coherence is not open source we need to check if it's in the classpath
+        // Support for Oracle Coherence:
+        // Since Coherence is not open source we use reflection to check their existence so
+        // we do not depend on it at compile time. If you need to measure Coherence make sure to
+        // download the coherence jar from Oracle website and put in the lib directory.
         try {
-            // Check if serializers.coherence.Coherence is in classpath
+            // Check if ConfigurablePofContext is in classpath which is used for serialization
             Class clz = Class.forName("com.tangosol.io.pof.ConfigurablePofContext");
-            //if serializers.coherence.Coherence classes are in the classoath then register the class using reflection.
+            // If we get here then class is present in classpath.
+            // Register the Coherence support class using reflection.
+
+            // Register using Coherence built-in serializer
             Class clzCoherence = Class.forName("serializers.coherence.Coherence");
             Method method = clzCoherence.getMethod("register", TestGroups.class);
             Object o = method.invoke(null, groups);
 
+            // Register Versioned support serializer (com.seovic.pof.PortableTypeSerializer)
+            // as described in https://github.com/aseovic/coherence-tools
             Class clzCoherenceVersioned = Class.forName("serializers.coherence.CoherenceVersioned");
             Method method_versioned = clzCoherenceVersioned.getMethod("register", TestGroups.class);
-            Object o1 = method_versioned.invoke(null, groups);
+            Object oVersioned = method_versioned.invoke(null, groups);
 
 
         } catch (ClassNotFoundException e) {

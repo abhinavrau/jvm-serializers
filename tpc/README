@@ -35,3 +35,20 @@ How this works:
      custom query charts.
   4) to filter out certain libraries, do not uncomment them in BenchMarkRunner.java (except they fail), better
      edit StatsCruncher.java to exclude them.
+
+
+Oracle Coherence Portable Object Format (POF) support
+
+    Since Oracle Coherence is not open source and the Oracle dveloper licence does not allow distributing of the library,
+    so in order to benchmark the coherence-pof and coherence-pof-versioned serializers, just download Oracle Coherence
+    from here http://www.oracle.com/technetwork/middleware/coherence/downloads/index.html and copy the coherence.jar to the lib
+    directory run
+
+    make clean
+    make
+
+    This should compile the src.coherence directory and you should be able to run
+
+    bash run-bench.sh coherence-pof,coherence-pof-versioned
+
+

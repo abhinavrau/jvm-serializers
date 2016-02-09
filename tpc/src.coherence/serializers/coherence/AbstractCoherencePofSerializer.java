@@ -14,6 +14,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
 
+/**
+ * Base class that supports Oracle Coherence POF serialization
+ * http://docs.oracle.com/middleware/1221/coherence/develop-applications/api_pof.htm#COHDG1365
+ *
+ * @param <T> the type parameter
+ *
+ * @see serializers.coherence.Coherence.CoherencePofSerializer
+ * @see serializers.coherence.CoherenceVersioned.CoherencePofSerializer
+ *
+ */
 public abstract class AbstractCoherencePofSerializer<T> extends Serializer<T> {
 
         public static int BUFFERSIZE_BYTES = 512;

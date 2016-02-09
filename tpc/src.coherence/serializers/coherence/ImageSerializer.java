@@ -8,7 +8,7 @@ import data.media.Image;
 import java.io.IOException;
 
 /**
- * Created by a593223 on 6/29/2015.
+ * Oracle Coherence POF serialization support for Image class
  */
 public class ImageSerializer implements PofSerializer{
 

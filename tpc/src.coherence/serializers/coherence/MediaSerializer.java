@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by a593223 on 6/29/2015.
+ * Oracle Coherence POF serialization support for Media class
  */
 
 public class MediaSerializer  implements PofSerializer {

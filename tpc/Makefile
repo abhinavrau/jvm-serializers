@@ -68,6 +68,11 @@ endif
 SchemaExtensions := .thrift .proto .tcks .avro .dsl
 Schemas = $(patsubst schema/%,%,$(wildcard $(SchemaExtensions:%=schema/*%)))
 
+
+ifneq ($(findstring coherence,$(wildcard lib/*.jar)),)
+	Coherence_exists := y
+endif
+
 ##########################################################################
 # Figure out classpath
 
@@ -182,6 +187,8 @@ JavaSourceRoots = src
 JavaSourceDirs = $(shell find $(JavaSourceRoots) -type d)
 JavaSourceFiles = $(shell find $(JavaSourceRoots) -type f -name '*.java')
 ScalaSourceFiles = $(shell find $(JavaSourceRoots) -type f -name '*.scala')
+CoherenceSourceRoots = src.coherence
+CoherenceSourceFiles = $(shell find $(CoherenceSourceRoots) -type f -name '*.java')
 
 build/bytecode/main.compile: $(JavaSourceRoots) $(JavaSourceDirs) $(JavaSourceFiles) $(ScalaSourceFiles) lib build/lib-cp build/gen-cp $(wildcard lib/*.jar) $(Schemas:%=build/bytecode/gen/%.compile)
 	$(p2)[ ! -e build/bytecode/main ] || rm -r build/bytecode/main
@@ -203,6 +210,17 @@ else
 	# Copy resources
 	$(p2)cp $(JavaSourceRoots)/log4j.xml build/bytecode/main
 endif
+ifeq ($(Coherence_exists), y)
+	# Compile: src.coherence [coherence]
+	$(p1)$(JavaC) $(JavaC_Opt) -d build/bytecode/main \
+		-deprecation \
+		-classpath "$(call mkcp,build/bytecode/main $(shell cat build/lib-cp) $(shell cat build/gen-cp))" \
+		$(CoherenceSourceFiles)
+	# Copy resources
+	$(p1)cp $(CoherenceSourceRoots)/jvm-serializers-pof-config.xml build/bytecode/main/
+	$(p1)cp $(CoherenceSourceRoots)/jvm-serializers-versioned-pof-config.xml build/bytecode/main/
+endif
+
 
 compile: build/bytecode/main.compile
 

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Coherence versioned.
+ */
 public class CoherenceVersioned {
 
 
@@ -28,7 +31,7 @@ public class CoherenceVersioned {
     public final static class CoherencePofSerializer<T> extends AbstractCoherencePofSerializer<T> {
         
         public CoherencePofSerializer(Class<T> c) {
-            super(c, "pregen/media.coherence/serializers/coherence/versioned-pof-config.xml");
+            super(c, "jvm-serializers-versioned-pof-config.xml");
 
         }
         public String getName() {

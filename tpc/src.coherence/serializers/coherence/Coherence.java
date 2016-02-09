@@ -22,7 +22,7 @@ public class Coherence {
     public final static class CoherencePofSerializer<T> extends AbstractCoherencePofSerializer<T> {
 
         public CoherencePofSerializer(Class<T> c) {
-            super(c, "pregen/media.coherence/serializers/coherence/pof-config.xml");
+            super(c, "jvm-serializers-pof-config.xml");
 
         }
         public String getName() {
